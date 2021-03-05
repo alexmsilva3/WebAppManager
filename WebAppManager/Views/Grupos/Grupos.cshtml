@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Grupos";
+    @model WebAppManager.Models.ViewModelGrupo;
+}
+<div class="breadcrumbs">
+    <div class="breadcrumb">
+        <button data-target="#adicionar" data-toggle="modal" class="btn green"><i class="fa fa-plus"></i> Adicionar </button>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Nome </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listaGrupos)
+                    {
+                        <tr>
+                            <td> @item.idgrupo </td>
+                            <td> @item.nome </td>
+                            <td width="10%">
+                                <button type="button" data-toggle="modal" data-target="#editar" onclick="AssignButtonClicked(this)" data-assigned-id="@item.idgrupo" class="btn btn-icon-only green"><i class="fa fa-edit"></i></button>
+                                <button type="button" data-toggle="modal" data-target="#remover" onclick="AssignButtonRemove(this)" data-remove-id="@item.idgrupo" class="btn btn-icon-only red"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adicionar" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Novo Grupo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet light bordered">
+                    <form asp-action="addGrupo" asp-controller="Grupos" asp-antiforgery="true" role="form" method="post">
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input asp-for="grupo.nome" type="text" class="form-control" id="form_control_1">
+                                <label asp-for="grupo.nome">Nome do Grupo</label>
+                            </div>
+                            @*<div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input type="text" class="form-control" id="form_control_1">
+                                <label for="form_control_1">Info input</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <select class="form-control edited" id="form_control_1">
+                                    <option value=""></option>
+                                    <option value="1" selected>Option 1</option>
+                                    <option value="2">Option 2</option>
+                                    <option value="3">Option 3</option>
+                                    <option value="4">Option 4</option>
+                                </select>
+                                <label for="form_control_1">Dropdown sample</label>
+                            </div>*@
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                            <button type="submit" class="btn green">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editar" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Editar Grupo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet light bordered">
+                    <form asp-action="updateGrupo" asp-controller="Grupos" asp-antiforgery="true" role="form" method="post">
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input asp-for="grupo.idgrupo" id="idgrupo" type="hidden" class="form-control">
+                                <input asp-for="grupo.nome" type="text" class="form-control">
+                                <label asp-for="grupo.nome">Nome do Grupo</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                            <button type="submit" class="btn green">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="remover" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="note note-danger">
+                    <h4 class="block">Tem certeza que deseja remover?</h4>
+                    <p> A remoção deste item não poderá ser desfeita! </p>
+                </div>
+                <form asp-action="removeGrupo" asp-controller="Grupos" asp-antiforgery="true" role="form" method="post">
+                    <input name="ridgrupo" id="ridgrupo" type="hidden" class="form-control">
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                        <button type="submit" class="btn red">Remover</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        function AssignButtonClicked(elem) {
+            var idgrupo = $(elem).data('assigned-id');
+            $('#idgrupo').val(idgrupo);
+        }
+
+        function AssignButtonRemove(elem) {
+            var removeid = $(elem).data('remove-id');
+            $('#ridgrupo').val(removeid);
+        }
+    </script>
+}

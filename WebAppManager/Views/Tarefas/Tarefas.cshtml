@@ -1,0 +1,202 @@
+﻿@{
+    ViewData["Title"] = "Tarefas";
+    @model WebAppManager.Models.ViewModelTarefa;
+}
+<div class="breadcrumbs">
+    <div class="breadcrumb">
+        <button data-toggle="modal" data-target="#adicionar" class="btn green"><i class="fa fa-plus"></i> Adicionar </button>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th> Nome </th>
+                        <th> Servidor </th>
+                        <th> Comando </th>
+                        <th> Agendado </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.listaTarefas)
+                    {
+                        <tr>
+                            <td> @item.idtarefa </td>
+                            <td> @item.nome </td>
+                            <td> @item.nomeServidor </td>
+                            <td> @item.nomeComando </td>
+                            <td> @item.data </td>
+                            <td width="10%">
+                                <button type="button" data-toggle="modal" data-target="#play" onclick="AssignPlay(this)" data-play-id="@item.idtarefa" class="btn btn-icon-only blue"><i class="fa fa-play"></i></button>
+                                <button type="button" data-toggle="modal" data-target="#editar" onclick="AssignEdit(this)" data-edit-id="@item.idtarefa" class="btn btn-icon-only green"><i class="fa fa-edit"></i></button>
+                                <button type="button" data-toggle="modal" data-target="#remover" onclick="AssignRemove(this)" data-remove-id="@item.idtarefa" class="btn btn-icon-only red"><i class="fa fa-times"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="adicionar" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Nova Tarefa</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet light bordered">
+                    <form asp-action="addTarefa" asp-controller="Tarefas" asp-antiforgery="true" role="form" method="post">
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input name="nome" type="text" class="form-control" id="form_control_1">
+                                <label>Nome da Tarefa</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <select name="fk_idservidor" class="form-control edited" id="form_control_1">
+                                    @foreach (var item in ViewBag.listaServidores)
+                                    {
+                                        <option value="@item.idservidor">@item.nome</option>
+                                    }
+                                </select>
+                                <label for="form_control_1">Servidor:</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <select name="fk_idcomando" class="form-control edited" id="form_control_1">
+                                    @foreach (var item in ViewBag.listaComandos)
+                                    {
+                                        <option value="@item.idcomando">@item.nome</option>
+                                    }
+                                </select>
+                                <label for="form_control_1">Comando:</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input name="data" type="text" class="form-control" id="form_control_1">
+                                <label>Agendar?</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                            <button type="submit" class="btn green">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editar" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Editar Tarefa</h4>
+            </div>
+            <div class="modal-body">
+                <div class="portlet light bordered">
+                    <form asp-action="updateTarefa" asp-controller="Tarefas" asp-antiforgery="true" role="form" method="post">
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input name="idtarefa" id="idtarefa" type="hidden" class="form-control">
+                                <input name="nome" type="text" class="form-control">
+                                <label>Nome da Tarefa</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <select name="fk_idservidor" class="form-control edited" id="form_control_1">
+                                    @foreach (var item in ViewBag.listaServidores)
+                                    {
+                                        <option value="@item.idservidor">@item.nome</option>
+                                    }
+                                </select>
+                                <label for="form_control_1">Servidor:</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <select name="fk_idcomando" class="form-control edited" id="form_control_1">
+                                    @foreach (var item in ViewBag.listaComandos)
+                                    {
+                                        <option value="@item.idcomando">@item.nome</option>
+                                    }
+                                </select>
+                                <label for="form_control_1">Comando:</label>
+                            </div>
+                            <div class="form-group form-md-line-input form-md-floating-label has-info">
+                                <input name="data" type="text" class="form-control" id="form_control_1">
+                                <label>Agendar?</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                            <button type="submit" class="btn green">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="remover" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="note note-danger">
+                    <h4 class="block">Tem certeza que deseja remover?</h4>
+                    <p> A remoção deste item não poderá ser desfeita! </p>
+                </div>
+                <form asp-action="removeTarefa" asp-controller="Tarefas" asp-antiforgery="true" role="form" method="post">
+                    <input name="ridtarefa" id="ridtarefa" type="hidden" class="form-control">
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                        <button type="submit" class="btn red">Remover</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="play" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="note note-danger">
+                    <h4 class="block">Tem certeza que deseja iniciar essa Tarefa?</h4>
+                    <p> A inicialização  deste item não poderá ser parada! </p>
+                </div>
+                <form asp-action="iniciaTarefa" asp-controller="Tarefas" asp-antiforgery="true" role="form" method="post">
+                    <input name="startidtarefa" id="startidtarefa" type="hidden" class="form-control">
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                        <button type="submit" class="btn green">Iniciar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    <script>
+        function AssignEdit(elem) {
+            var idtarefa = $(elem).data('edit-id');
+            $('#idtarefa').val(idtarefa);
+        }
+
+        function AssignRemove(elem) {
+            var rid = $(elem).data('remove-id');
+            $('#ridtarefa').val(rid);
+        }
+
+        function AssignPlay(elem) {
+            var startidtarefa = $(elem).data('play-id');
+            $('#startidtarefa').val(startidtarefa);
+        }
+    </script>
+}

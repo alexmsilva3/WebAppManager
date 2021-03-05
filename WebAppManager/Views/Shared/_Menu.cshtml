@@ -1,0 +1,127 @@
+﻿<!-- BEGIN HEADER -->
+<header class="page-header">
+    <nav class="navbar mega-menu" role="navigation">
+        <div class="container-fluid">
+            <div class="clearfix navbar-fixed-top">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </span>
+                </button>
+                <!-- End Toggle Button -->
+                <!-- BEGIN LOGO -->
+                <a id="index" class="page-logo" href="index.html">
+                    <img src="~/assets/layouts/layout5/img/logo.png" alt="Logo">
+                </a>
+                <!-- END LOGO -->
+                <!-- BEGIN TOPBAR ACTIONS -->
+                <div class="topbar-actions">
+                    <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                    <button type="button" class="quick-sidebar-toggler md-skip" data-toggle="collapse">
+                        <i class="icon-logout"></i>
+                    </button>
+                    <!-- END QUICK SIDEBAR TOGGLER -->
+                </div>
+                <!-- END TOPBAR ACTIONS -->
+            </div>
+            <!-- BEGIN HEADER MENU -->
+            <div class="nav-collapse collapse navbar-collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown dropdown-fw dropdown-fw-disabled  active open selected">
+                        <a href="javascript:;" class="text-uppercase">
+                            <i class="icon-home"></i> Home
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+                            <li @*class="active"*@>
+                                <a asp-controller="Home" asp-action="Index">
+                                    <i class="fa fa-home"></i> Home
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Tarefas" asp-action="Tarefas">
+                                    <i class="fa fa-th-large"></i> Tarefas
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Servidores" asp-action="Servidores">
+                                    <i class="fa fa-server"></i> Servidores
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Comandos" asp-action="Comandos">
+                                    <i class="fa fa-terminal"></i> Comandos
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Grupos" asp-action="Grupos">
+                                    <i class="fa fa-folder-o"></i> Grupos
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Log" asp-action="Log">
+                                    <i class="icon-graph"></i> Logs
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    @*<li class="dropdown dropdown-fw dropdown-fw-disabled  ">
+                        <a href="javascript:;" class="text-uppercase">
+                            <i class="icon-briefcase"></i> Tables
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-fw">
+                            <li>
+                                <a href="table_static_basic.html"> Basic Tables </a>
+                            </li>
+                            <li>
+                                <a href="table_static_responsive.html"> Responsive Tables </a>
+                            </li>
+                            <li>
+                                <a href="table_bootstrap.html"> Bootstrap Tables </a>
+                            </li>
+                            <li class="dropdown more-dropdown-sub">
+                                <a href="javascript:;"> Datatables </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="table_datatables_managed.html"> Managed Datatables </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_buttons.html"> Buttons Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_colreorder.html"> Colreorder Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_rowreorder.html"> Rowreorder Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_scroller.html"> Scroller Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_fixedheader.html"> FixedHeader Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_responsive.html"> Responsive Extension </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_editable.html"> Editable Datatables </a>
+                                    </li>
+                                    <li>
+                                        <a href="table_datatables_ajax.html"> Ajax Datatables </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>*@
+                </ul>
+            </div>
+            <!-- END HEADER MENU -->
+        </div>
+        <!--/container-->
+    </nav>
+</header>
+<!-- END HEADER -->
