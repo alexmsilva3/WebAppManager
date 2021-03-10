@@ -35,6 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\CommandRepo\" />
     <Folder Include="wwwroot\assets\apps\img\" />
     <Folder Include="wwwroot\assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
   </ItemGroup>

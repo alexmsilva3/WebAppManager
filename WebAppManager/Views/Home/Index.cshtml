@@ -2,7 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="modal-body">
+    <div class="portlet light bordered">
+        <form asp-action="EnviarArquivo" asp-controller="Home" asp-antiforgery="true" enctype="multipart/form-data" method="post">
+            <div class="form-body">
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="input-group input-large">
+                        <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                            <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                            <span class="fileinput-filename"></span>
+                        </div>
+                        <span class="input-group-addon btn default btn-file">
+                            <span class="fileinput-new"> Selecionar </span>
+                            <span class="fileinput-exists"> Alterar </span>
+                            <input type="file" name="arquivo">
+                        </span>
+                        <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remover </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
+                <button type="submit" class="btn green">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>

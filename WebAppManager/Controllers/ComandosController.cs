@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,11 @@ namespace WebAppManager.Controllers
         ModelVariavel variavel = new ModelVariavel();
         ViewModelComandos vwcomando = new ViewModelComandos();
         ModelGrupo grupo = new ModelGrupo();
+        IHostingEnvironment _appEnvironment;
+        public ComandosController(IHostingEnvironment env)
+        {
+            _appEnvironment = env;
+        }
 
         public IActionResult Comandos()
         {
@@ -26,7 +33,7 @@ namespace WebAppManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult addComando(ModelComandos comando)
         {
-            comando.addComando(comando);
+            comando.addComando(comando, _appEnvironment.WebRootPath);
             return RedirectToAction("Comandos", "Comandos");
         }
 
@@ -34,7 +41,7 @@ namespace WebAppManager.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult updateComando(ModelComandos comando)
         {
-            comando.updateComando(comando, comando.nome, comando.fk_idgrupo);
+            comando.updateComando(comando, comando.nome, comando.fk_idgrupo, _appEnvironment.WebRootPath);
             return RedirectToAction("Comandos", "Comandos");
         }
 
@@ -62,5 +69,44 @@ namespace WebAppManager.Controllers
             variavel.removeVariavel(Int32.Parse(ridvar));
             return RedirectToAction("Comandos", "Comandos");
         }
+
+        //public async Task<IActionResult> EnviarArquivo(IFormFile arquivo)
+        //{
+
+        //    // caminho completo do arquivo na localização temporária
+        //    var caminhoArquivo = Path.GetTempFileName();
+
+        //    //verifica se existem arquivos 
+        //    if (arquivo == null || arquivo.Length == 0)
+        //    {
+        //        //retorna a viewdata com erro
+        //        ViewData["Erro"] = "Error: Arquivo(s) não selecionado(s)";
+        //        return View(ViewData);
+        //    }
+        //    //define a pasta onde vamos salvar os arquivos
+        //    string pasta = "CommandRepo";
+        //    // Define um nome para o arquivo enviado incluindo o sufixo obtido de milesegundos
+        //    string nomeArquivo = arquivo.FileName;
+        //    //< obtém o caminho físico da pasta wwwroot >
+        //    string caminho_WebRoot = _appEnvironment.WebRootPath;
+        //    // monta o caminho onde vamos salvar o arquivo : 
+        //    string caminhoDestinoArquivo = Path.Combine(caminho_WebRoot, pasta, nomeArquivo);
+
+        //    //Verifica se a pasta existe, caso não, cria
+        //    if (!Directory.Exists(Path.GetDirectoryName(caminhoDestinoArquivo)))
+        //    {
+        //        Directory.CreateDirectory(Path.GetDirectoryName(caminhoDestinoArquivo));
+        //    }
+
+        //    //copia o arquivo para o local de destino original
+        //    using (var stream = new FileStream(caminhoDestinoArquivo, FileMode.Create))
+        //    {
+        //        await arquivo.CopyToAsync(stream);
+        //    }
+        //    //monta a ViewData que será exibida na view como resultado do envio 
+        //    ViewData["Resultado"] = $"{arquivo} arquivos foram enviados ao servidor";
+        //    //retorna a viewdata
+        //    return View(ViewData);
+        //}
     }
 }

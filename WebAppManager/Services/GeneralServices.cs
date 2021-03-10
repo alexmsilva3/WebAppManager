@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,6 +125,11 @@ namespace WebAppManager.Services
             {
                 return Convert.ToDouble(valor);
             }
+
+            //public static FormFile ConverteArquivo (object arquivo)
+            //{
+            //    return arquivo.;
+            //}
         }
     }
 }

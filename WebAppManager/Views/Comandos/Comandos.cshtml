@@ -15,6 +15,7 @@
                     <tr>
                         <th> # </th>
                         <th> Nome </th>
+                        <th> Arquivo </th>
                         <th> Grupo</th>
                         <th></th>
                     </tr>
@@ -25,6 +26,7 @@
                         <tr>
                             <td> @item.idcomando </td>
                             <td> @item.nome </td>
+                            <td> @item.arquivoNome </td>
                             <td> @item.grupo</td>
                             <td width="10%">
                                 <button type="button" data-toggle="modal" data-target="#addVariavel" onclick="AssignButtonVar(this)" data-var-id="@item.idcomando" class="btn btn-icon-only blue"><i class="fa fa-th-large"></i></button>
@@ -61,6 +63,7 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="adicionar" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,11 +73,26 @@
             </div>
             <div class="modal-body">
                 <div class="portlet light bordered">
-                    <form asp-action="addComando" asp-controller="Comandos" asp-antiforgery="true" role="form" method="post">
+                    <form asp-action="addComando" asp-controller="Comandos" asp-antiforgery="true" enctype="multipart/form-data" method="post">
                         <div class="form-body">
                             <div class="form-group form-md-line-input form-md-floating-label has-info">
                                 <input name="nome" type="text" class="form-control" id="form_control_1">
                                 <label>Nome do Comando</label>
+                            </div>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <label>Arquivo:</label>
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Selecionar </span>
+                                        <span class="fileinput-exists"> Alterar </span>
+                                        <input type="file" name="arquivo">
+                                    </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remover </a>
+                                </div>
                             </div>
                             <div class="form-group form-md-line-input form-md-floating-label has-info">
                                 <select name="fk_idgrupo" class="form-control edited" id="form_control_1">
@@ -85,6 +103,7 @@
                                 </select>
                                 <label for="form_control_1">Grupo:</label>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancelar</button>
@@ -106,12 +125,27 @@
             </div>
             <div class="modal-body">
                 <div class="portlet light bordered">
-                    <form asp-action="updateComando" asp-controller="Comandos" asp-antiforgery="true" role="form" method="post">
+                    <form asp-action="updateComando" asp-controller="Comandos" asp-antiforgery="true" enctype="multipart/form-data" method="post">
                         <div class="form-body">
                             <div class="form-group form-md-line-input form-md-floating-label has-info">
                                 <input name="idcomando" id="idcomando" type="hidden" class="form-control">
                                 <input name="nome" type="text" class="form-control">
                                 <label>Nome do Comando</label>
+                            </div>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <label>Arquivo:</label>
+                                <div class="input-group input-large">
+                                    <div class="form-control uneditable-input input-fixed input-medium" data-trigger="fileinput">
+                                        <i class="fa fa-file fileinput-exists"></i>&nbsp;
+                                        <span class="fileinput-filename"></span>
+                                    </div>
+                                    <span class="input-group-addon btn default btn-file">
+                                        <span class="fileinput-new"> Selecionar </span>
+                                        <span class="fileinput-exists"> Alterar </span>
+                                        <input type="hidden" name="arquivo" id="arquivo"><input type="file" name="arquivo">
+                                    </span>
+                                    <a href="javascript:;" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput"> Remover </a>
+                                </div>
                             </div>
                             <div class="form-group form-md-line-input form-md-floating-label has-info">
                                 <select name="fk_idgrupo" class="form-control edited" id="form_control_1">
